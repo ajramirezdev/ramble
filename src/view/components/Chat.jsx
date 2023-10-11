@@ -11,7 +11,7 @@ import UserModel from "../../model/UserModel";
 import moment from "moment-timezone";
 import "../../App.css";
 
-const SERVER_URL = "http://localhost:2222";
+const SERVER_URL = "https://ramble-be.onrender.com";
 
 const Chat = () => {
   const { room } = useLoaderData();

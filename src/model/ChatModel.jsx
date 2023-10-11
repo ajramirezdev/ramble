@@ -1,5 +1,7 @@
 class ChatModel {
-  constructor() {}
+  constructor() {
+    this.BASE_URL = "https://ramble-be.onrender.com";
+  }
 
   async addMessage(roomId, sender, message) {
     try {
@@ -8,7 +10,7 @@ class ChatModel {
         sender: sender,
         body: message,
       };
-      await fetch("http://localhost:2222/chat", {
+      await fetch(`${this.BASE_URL}/chat`, {
         method: "POST",
         mode: "cors",
         headers: {
@@ -23,7 +25,7 @@ class ChatModel {
 
   async getRoomMessages(roomId) {
     try {
-      const response = await fetch(`http://localhost:2222/chat/${roomId}`);
+      const response = await fetch(`${this.BASE_URL}/chat/${roomId}`);
       const roomMessages = await response.json();
       return roomMessages;
     } catch (err) {
@@ -34,7 +36,7 @@ class ChatModel {
   async getPrivateMessages(senderId, receiverId) {
     try {
       const response = await fetch(
-        `http://localhost:2222/chat/${senderId}/${receiverId}`
+        `${this.BASE_URL}/chat/${senderId}/${receiverId}`
       );
       const privateMessages = await response.json();
       return privateMessages;

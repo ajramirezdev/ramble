@@ -10,7 +10,7 @@ import ChatModel from "../../model/ChatModel";
 import UserModel from "../../model/UserModel";
 import moment from "moment-timezone";
 
-const SERVER_URL = "http://localhost:2222";
+const SERVER_URL = "https://ramble-be.onrender.com";
 
 const PrivateChat = () => {
   const { receiver } = useLoaderData();

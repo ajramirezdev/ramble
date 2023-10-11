@@ -1,9 +1,11 @@
 class RoomModel {
-  constructor() {}
+  constructor() {
+    this.BASE_URL = "https://ramble-be.onrender.com";
+  }
 
   async createRoom(roomData) {
     try {
-      const response = await fetch("http://localhost:2222/room", {
+      const response = await fetch(`${this.BASE_URL}/room`, {
         method: "POST",
         mode: "cors",
         headers: {
@@ -20,7 +22,7 @@ class RoomModel {
 
   async getAllRooms() {
     try {
-      const response = await fetch("http://localhost:2222/room");
+      const response = await fetch(`${this.BASE_URL}/room`);
       const rooms = await response.json();
       return rooms;
     } catch (error) {
@@ -30,7 +32,7 @@ class RoomModel {
 
   async getPublicRooms() {
     try {
-      const response = await fetch("http://localhost:2222/room");
+      const response = await fetch(`${this.BASE_URL}/room`);
       const rooms = await response.json();
       const publicRooms = await rooms.filter((room) => !room.isPrivate);
       return publicRooms;
@@ -41,7 +43,7 @@ class RoomModel {
 
   async getPrivateRooms() {
     try {
-      const response = await fetch("http://localhost:2222/room");
+      const response = await fetch(`${this.BASE_URL}/room`);
       const rooms = await response.json();
       const publicRooms = await rooms.filter((room) => room.isPrivate);
       return publicRooms;
@@ -52,7 +54,7 @@ class RoomModel {
 
   async getOneRoom(roomId) {
     try {
-      const response = await fetch(`http://localhost:2222/room/${roomId}`);
+      const response = await fetch(`${this.BASE_URL}/room/${roomId}`);
       const room = await response.json();
       return room;
     } catch (error) {
@@ -62,9 +64,7 @@ class RoomModel {
 
   async getRoomByName(roomName) {
     try {
-      const response = await fetch(
-        `http://localhost:2222/room?name=${roomName}`
-      );
+      const response = await fetch(`${this.BASE_URL}/room?name=${roomName}`);
       const room = await response.json();
       return room;
     } catch (error) {
@@ -74,9 +74,7 @@ class RoomModel {
 
   async getCreatedRooms(userId) {
     try {
-      const response = await fetch(
-        `http://localhost:2222/room?createdBy=${userId}`
-      );
+      const response = await fetch(`${this.BASE_URL}/room?createdBy=${userId}`);
       const rooms = await response.json();
       return rooms;
     } catch (error) {
@@ -86,9 +84,7 @@ class RoomModel {
 
   async getJoinedRooms(userId) {
     try {
-      const response = await fetch(
-        `http://localhost:2222/room?joinedBy=${userId}`
-      );
+      const response = await fetch(`${this.BASE_URL}/room?joinedBy=${userId}`);
       const rooms = await response.json();
       return rooms;
     } catch (error) {
@@ -98,7 +94,7 @@ class RoomModel {
 
   async editRoom(roomId, edits) {
     try {
-      const response = await fetch(`http://localhost:2222/room/${roomId}`, {
+      const response = await fetch(`${this.BASE_URL}/room/${roomId}`, {
         method: "PUT",
         mode: "cors",
         headers: {
@@ -115,7 +111,7 @@ class RoomModel {
 
   async deleteRoom(roomId) {
     try {
-      await fetch(`http://localhost:2222/room/${roomId}`, {
+      await fetch(`${this.BASE_URL}/room/${roomId}`, {
         method: "DELETE",
       });
     } catch (error) {
