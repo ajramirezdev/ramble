@@ -220,20 +220,6 @@ const RegistrationPage = ({
               handleClick={register}
               name="Register"
             />
-
-            {/* {blankFName ? <div>Names should not be blank</div> : null}
-            {blankLName ? <div>Names should not be blank</div> : null}
-            {emailTaken ? <div>Email already taken</div> : null}
-            {ageRestricted ? (
-              <div>Age restricted under 13 years old</div>
-            ) : null}
-            {invalidPassword ? <div>Invalid Password</div> : null}
-            {differentPasswords ? <div>Passwords does not match</div> : null} */}
-
-            {/* <ErrorMessagesForm
-              name={emptyRegisterGeneral}
-              message="Fields should not be empty!"
-            /> */}
           </form>
 
           <CustomButtonText
@@ -250,41 +236,3 @@ const RegistrationPage = ({
 };
 
 export default RegistrationPage;
-
-{
-  /* Shows the error messages 1 by 1 */
-}
-{
-  /* {blankNames ? (
-              <div>Names should not be blank</div>
-            ) : emailTaken ? (
-              <div>Email already taken</div>
-            ) : ageRestricted ? (
-              <div>Age restricted under 13 years old</div>
-            ) : invalidPassword ? (
-              <div>Invalid Password</div>
-            ) : differentPasswords ? (
-              <div>Passwords does not match</div>
-            ) : null} */
-}
-
-{
-  /* //.// */
-}
-{
-  /* Shows all error messages at once */
-}
-{
-  /* {blankNames ? <div>Names should not be blank</div> : null}
-            {emailTaken ? <div>Email already taken</div> : null}
-            {ageRestricted ? <div>Age restricted under 13 years old</div> : null}
-            {invalidPassword ? <div>Invalid Password</div> : null}
-            {differentPasswords ? <div>Passwords does not match</div> : null} */
-}
-{
-  /* <ErrorMessagesForm
-              name={errorRegMessage.emptyRegister}
-              message="Fields should not be empty!"
-              form={form.password}
-            /> */
-}

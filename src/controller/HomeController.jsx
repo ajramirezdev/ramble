@@ -227,10 +227,6 @@ const HomeController = () => {
     }
   };
 
-  // const showCreateModal = () => {
-  //   dispatch({ type: "SHOW_CREATE_ROOM_FORM" });
-  // };
-
   const createNewRoom = async (event) => {
     event.preventDefault();
 
@@ -380,7 +376,7 @@ const HomeController = () => {
   };
 
   return (
-    <div className="m-0 p-0">
+    <div className="">
       <div className="">
         {state.showEditUserModal ? (
           <EditUserModal
@@ -392,42 +388,31 @@ const HomeController = () => {
             submitUserEdits={submitUserEdits}
           />
         ) : null}
-        <div className="">
-          <div className="">
-            {/* <div className="flex flex-row justify-center">
-              <SearchBar
-                roomSearchRef={roomSearchRef}
-                searchRooms={searchRooms}
-              />
-            </div> */}
-          </div>
-          {/* <CustomButton handleClick={showCreateModal} name="+ Create Room" /> */}
-        </div>
-        <div className="flex">
-          <div
-            className="bg-emerald-900 h-screen p-2 shadow-lg flex flex-col justify-between w-20 items-center"
-            style={{
-              height: "50rem",
-            }}
-          >
+
+        <div className="flex h-screen">
+          <div className="bg-gradient-to-b from-slate-800 from-10% to-emerald-600 to-100% h-screen p-2 shadow-lg flex flex-col justify-between 2xl:w-20 w-16 items-center">
             <div>
-              <img className="h-14 mt-0 rounded shadow-md" src={logo} alt="" />
+              <img
+                className="2xl:h-14 h-10 mt-0 rounded shadow-md object-cover"
+                src={logo}
+                alt=""
+              />
               <img
                 src={user.img}
                 alt={user.name}
-                className="h-14 mt-5 rounded-full border-spacing-10 shadow-md"
+                className="2xl:h-14 h-10 mt-5 rounded-full border-spacing-10 shadow-md object-cover"
                 onClick={showEditUserModal}
               />
             </div>
             <div>
               <IoLogOut
-                className="text-5xl self-end cursor-pointer text-emerald-200 transform -scale-x-100"
+                className="2xl:text-5xl text-xl self-end cursor-pointer text-emerald-200 transform -scale-x-100"
                 onClick={logout}
               />
             </div>
           </div>
           <FriendList mainUser={user} />
-          <div className="flex flex-row just">
+          <div className="flex flex-row just w-screen">
             <RoomTabs
               user={user}
               allUsers={state.allUsers}

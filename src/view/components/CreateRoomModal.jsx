@@ -1,7 +1,11 @@
 import CustomInput from "./CustomInput";
 import CustomButton from "./CustomButton";
+import CustomButtonText from "./CustomButtonText";
 import { useContext } from "react";
 import { AuthContext } from "../../model/providers/authProvider";
+
+//icons
+import { MdOutlineClose } from "react-icons/md";
 
 const CreateRoomModal = ({
   isPrivate,
@@ -15,42 +19,48 @@ const CreateRoomModal = ({
   const [state, dispatch] = useContext(AuthContext);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-700 bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <CustomButton
-        styleColor="bg-emerald-500"
-          handleClick={() => {
+    <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center">
+      <div className="flex flex-col items-center justify-center bg-white md: w-96  p-2 rounded-lg">
+        <button
+          onClick={() => {
             dispatch({ type: "SHOW_CREATE_ROOM_FORM" });
             dispatch({ type: "DIFFERENT_PASSWORDS", payload: false });
             dispatch({ type: "BLANK_NAMES", payload: false });
             dispatch({ type: "EMAIL_TAKEN", payload: false });
           }}
-          name="Close"
-          styleSize="p-2"
-        />
+          className="place-self-end text-2xl text-emerald-800"
+        >
+          <MdOutlineClose />
+        </button>
+
         <h3 className="text-2xl font-semibold mb-4">New Room</h3>
-        <form action="POST" onSubmit={createNewRoom}>
+        <form action="POST" onSubmit={createNewRoom} className="py-2">
           <CustomInput
             id="roomName"
             type="text"
             placeholder="Room Name"
             handleChange={saveRoomInputs}
-            styleSize="p-2"
+            styleSize="w-72 h-5"
+            styleColor="text-slate-800"
+            styleTextColor="text-slate-800"
           />
           <CustomInput
             id="roomCaption"
             type="text"
             placeholder="About"
             handleChange={saveRoomInputs}
-            styleSize="p-2"
+            styleSize="w-72 h-5"
+            styleColor="text-slate-800"
+            styleTextColor="text-slate-800"
           />
-          <button
-            onClick={setRoomToPrivate}
-            type="button"
-            className="bg-emerald-500 ml-4 text-white px-4 py-2 rounded mb-4 mt-4 shadow-lg hover:bg-emerald-600"
-          >
-            {isPrivate ? "Click here to Public" : "Click here to Private"}
-          </button>
+
+          <CustomButtonText
+            name={isPrivate ? "Click here to Public" : "Click here to Private"}
+            styleSize="w-52"
+            styleTextColor="text-gray-500"
+            handleClick={setRoomToPrivate}
+          />
+
           {isPrivate ? (
             <>
               <CustomInput
@@ -58,25 +68,38 @@ const CreateRoomModal = ({
                 type="password"
                 placeholder="Password"
                 handleChange={saveRoomInputs}
-                styleSize="p-2"
+                styleSize="w-72 h-5"
+                styleColor="text-slate-800"
+                styleTextColor="text-slate-800"
               />
               <CustomInput
                 id="confrimPassword"
                 type="password"
                 placeholder="Confirm Password"
                 handleChange={saveRoomInputs}
-                styleSize="p-2"
+                styleSize="w-72 h-5"
+                styleColor="text-slate-800"
+                styleTextColor="text-slate-800"
               />
               {differentPasswords ? (
-                <div className="text-red-500 mb-4 mt-4 ml-3">Password did not match</div>
+                <div className="text-red-500 mb-4 mt-4 ml-3">
+                  Password did not match
+                </div>
               ) : null}
             </>
           ) : null}
-          <CustomButton name={"CREATE"} styleSize="p-2" />
+          <CustomButton
+            name="Create Room"
+            styleSize="w-72"
+            styleColor="bg-emerald-700 hover:bg-emerald-900"
+            styleTextColor="text-white"
+          />
           {roomNameTaken ? (
             <div className="text-red-500">Room name already taken</div>
           ) : blankNames ? (
-            <div className="text-red-500">Name and caption should not be blank</div>
+            <div className="text-red-500">
+              Name and caption should not be blank
+            </div>
           ) : null}
         </form>
       </div>

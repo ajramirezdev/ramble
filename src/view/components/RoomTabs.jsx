@@ -43,31 +43,31 @@ const RoomTabs = ({
 
   return (
     <div
-      className="bg-emerald-700  rounded-bg-lg shadow-lg"
-      style={{ width: "80rem" }}
+      className="bg-white rounded-bg-lg shadow-lg"
+      style={{ width: "100%" }}
     >
-      <nav className=" flex justify-between items-center px-4">
-        <div className="flex  py-3 gap-1 h-16 items-center">
+      <nav className=" flex justify-between items-center 2xl:px-4 xl:px-2 bg-gradient-to-r from-slate-800 from-5% to-emerald-700 to-15% 2xl:h-16 xl:h-12">
+        <div className="flex  py-3 gap-1 items-center">
           <Link
-            className="bg-emerald-500 focus:bg-emerald-600 text-white hover:bg-emerald-600 p-1 rounded"
+            className="bg-emerald-500 focus:bg-emerald-600 text-white hover:bg-emerald-600 p-1 rounded xl:text-sm"
             to="my-rooms"
           >
             My Chatrooms
           </Link>
           <Link
-            className="bg-emerald-500 focus:bg-emerald-600 text-white hover:bg-emerald-600 p-1 rounded"
+            className="bg-emerald-500 focus:bg-emerald-600 text-white hover:bg-emerald-600 p-1 rounded xl:text-sm"
             to="joined"
           >
             Joined
           </Link>
           <Link
-            className="bg-emerald-500 focus:bg-emerald-600 text-white hover:bg-emerald-600 p-1 rounded"
+            className="bg-emerald-500 focus:bg-emerald-600 text-white hover:bg-emerald-600 p-1 rounded xl:text-sm"
             to="public"
           >
             Public
           </Link>
           <Link
-            className="bg-emerald-500 focus:bg-emerald-600 text-white hover:bg-emerald-600 p-1 rounded"
+            className="bg-emerald-500 focus:bg-emerald-600 text-white hover:bg-emerald-600 p-1 rounded xl:text-sm"
             to="private"
           >
             Private
@@ -76,7 +76,7 @@ const RoomTabs = ({
             <CustomButton
               handleClick={showCreateModal}
               name="+ Create Room"
-              styleColor="bg-green-500"
+              styleColor="bg-green-500 xl:text-sm"
             />
           </div>
         </div>

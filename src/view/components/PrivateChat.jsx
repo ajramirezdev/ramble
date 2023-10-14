@@ -10,6 +10,9 @@ import ChatModel from "../../model/ChatModel";
 import UserModel from "../../model/UserModel";
 import moment from "moment-timezone";
 
+//icons
+import { PiPaperPlaneRightFill } from "react-icons/pi";
+
 const SERVER_URL = "https://ramble-be.onrender.com";
 
 const PrivateChat = () => {
@@ -88,22 +91,16 @@ const PrivateChat = () => {
 
   return (
     <div
-      className="flex flex-col bg-white rounded shadow-lg"
-      style={{ width: "80rem", height: "46rem" }}
+      className="flex flex-col bg-white shadow-lg "
+      style={{ height: "90%" }}
     >
-      <div className="flex text-slate-900 font-extrabold bg-emerald-400 rounded-tl rounded-tr px-8 py-2 items-center gap-4">
+      <div className="flex text-slate-900 font-extrabold bg-gray-100 shadow-md rounded-tr px-8 2xl:py-2 py-1 items-center gap-4">
         <img
           src={receiver.img}
           alt=""
-          style={{
-            height: "50px",
-            width: "50px",
-            borderRadius: "50%",
-            objectFit: "cover",
-            border: "2px solid black",
-          }}
+          className="rounded-full h-11 w-11 border-2 border-emerald-700 object-cover	"
         />
-        <h3 className="text-lg">
+        <h3 className="2xl:text-lg text-base">
           {receiver.firstName} {receiver.lastName}
         </h3>
       </div>
@@ -113,7 +110,7 @@ const PrivateChat = () => {
           const sender = users.find((user) => user._id === chat.sender._id);
           return (
             <div key={index}>
-              <p className="text-center pt-2" style={{ fontSize: ".7rem" }}>
+              <p className="text-center pt-2 text-xs">
                 {new Date(chat.createdAt)
                   .toLocaleString()
                   .slice(0, 9)
@@ -135,33 +132,19 @@ const PrivateChat = () => {
                   </span>
                 )}
               </p>
-              <div
-                key={index}
-                // className={
-                //   sender._id === user._id
-                //     ? "flex flex-row-reverse items-center px-2 pb-2"
-                //     : "flex flex-row items-center px-2 pb-2"
-                // }
-              >
+              <div key={index}>
                 <div
                   className={
                     sender._id === user._id
-                      ? "flex flex-row-reverse items-center px-2 pb-2"
-                      : "flex flex-row items-center px-2 pb-2"
+                      ? "flex flex-row-reverse items-center px-2 pb-2 text-sm 2xl:text-base"
+                      : "flex flex-row items-center px-2 pb-2 text-sm 2xl:text-base"
                   }
                 >
                   <div className="flex flex-col">
                     <img
                       src={sender.img}
                       alt={`${chat.sender.firstName}'s avatar`}
-                      className=""
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        display: "inline-block",
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                      }}
+                      className="rounded-full h-10 w-10 object-cover"
                     />
                   </div>
                   <div className="flex flex-col">
@@ -190,31 +173,34 @@ const PrivateChat = () => {
           );
         })}
       </div>
-      <div className="p-4 bg-emerald-300">
-        <div className="flex justify-between">
+      <div className="2xl:p-4 p-2 bg-emerald-500 static bottom-0 w-full ">
+        <div className="flex">
           <form
             onSubmit={(e) => {
               e.preventDefault();
               return sendMessage();
             }}
-            className="flex-grow"
+            className="w-full flex bg-white border-gray-300 rounded-lg shadow-lg  mx-4 py-1"
           >
             <input
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Type your Message "
-              className="ml-5 border-gray-300 rounded-lg shadow-lg p-2 "
-              style={{ width: "65rem" }}
+              className="ml-1 2xl:p-2 p-1 2xl:text-base rounded-lg text-sm w-full outline-none "
             />
 
-            <button
+            <PiPaperPlaneRightFill
               onClick={sendMessage}
-              className="mr-5 ml-2 p-2 bg-emerald-500 text-white rounded-lg shadow-lg hover:bg-emerald-600"
-              style={{ width: "7rem" }}
+              className="text-2xl 2xl:text-4xl text-emerald-800 hover:text-emerald-900 mr-2 cursor-pointer"
+            />
+
+            {/* <button
+              onClick={sendMessage}
+              className="mr-0 ml-2 p-1 bg-emerald-500 text-white rounded-lg shadow-lg hover:bg-emerald-600 w-20 "
             >
               Send
-            </button>
+            </button> */}
           </form>
         </div>
       </div>

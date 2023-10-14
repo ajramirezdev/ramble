@@ -10,14 +10,12 @@ const PublicRoomList = () => {
       className="
       flex 
       flex-col 
-      bg-emerald-200 
+      bg-white
       shadow-lg
       px-4
       "
       style={{
-        width: "80rem",
-        height: "46rem",
-        overflowY: "auto",
+        height: "94%",
       }}
     >
       <ScrollableFeed>

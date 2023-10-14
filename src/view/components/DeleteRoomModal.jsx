@@ -48,16 +48,16 @@ const DeleteRoomModal = ({ roomData, path }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-700 bg-opacity-50">
       <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-        <div className="mb-4 text-xl font-semibold">Are you sure?</div>
+        <div className="mb-4 2xl:text-xl text-center font-semibold">Are you sure?</div>
         <button
           onClick={deleteRoom}
-          className="mr-2 px-4 py-2 bg-red-500 text-white rounded-lg"
+          className="mr-2 px-4 py-1 2xl:py-2 w-16 bg-red-500 hover:bg-red-600 text-white rounded-lg"
         >
           Yes
         </button>
         <button
           onClick={() => dispatch({ type: "SHOW_DELETE_ROOM_MODAL" })}
-          className="px-4 py-2 bg-gray-300 text-gray-600 rounded-lg"
+          className="px-4 py-1 2xl:py-2 w-16 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg"
         >
           No
         </button>

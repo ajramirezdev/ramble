@@ -10,15 +10,13 @@ const PrivateRoomList = () => {
       flex 
       flex-col 
       m-auto 
-      bg-emerald-200
+      bg-white
       rounded-lg 
       shadow-lg
       px-4
       "
       style={{
-        width: "80rem",
-        height: "46rem",
-        overflowY: "auto",
+        height: "94%",
       }}
     >
       {privateRooms.map((room) => {
@@ -61,7 +59,12 @@ const PrivateRoomList = () => {
                 </Link>
               </div>
             ) : isMember ? (
-              <Link to={`/chat/room/${_id}`}>Enter</Link>
+              <Link
+                to={`/chat/room/${_id}`}
+                className="flex justify-center shadow-lg m-1 p-1 w-24 bg-emerald-500 text-white rounded text-sm hover:bg-emerald-600"
+              >
+                Enter
+              </Link>
             ) : (
               <button
                 className="flex justify-center shadow-lg mb-5 p-1 w-24 bg-emerald-500 text-white rounded text-sm hover:bg-emerald-600 "

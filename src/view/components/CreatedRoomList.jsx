@@ -8,15 +8,14 @@ const CreatedRoomList = () => {
       className="
       flex 
       flex-col 
-      bg-emerald-200 
-      shadow-lg
+      bg-white
       px-4
       "
-      style={{
-        width: "80rem",
-        height: "46rem",
-        overflowY: "auto",
-      }}
+      // style={{
+      //   width: "80rem",
+      //   height: "46rem",
+      //   overflowY: "auto",
+      // }}
     >
       {createdRooms.map((room) => {
         const { roomName, roomCaption } = room;
