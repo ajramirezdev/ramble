@@ -48,15 +48,18 @@ const LoginController = () => {
       dispatch({ type: "EMPTY_LOGIN_PASSWORD", payload: false });
     }
 
-    console.log(!loginForm.email && loginForm.password);
-    // console.log(loginForm.password && !loginForm.password);
-
     try {
       const token = await UserModel.login(loginForm.email, loginForm.password);
       dispatch({ type: "SAVE_TOKEN", payload: token });
       navigate("/chat");
     } catch (err) {
-      if (!loginForm.email && loginForm.password) {
+      if (!loginForm.email && !loginForm.password) {
+        dispatch({ type: "EMPTY_LOGIN_GENERAL", payload: true });
+      } else {
+        dispatch({ type: "EMPTY_LOGIN_GENERAL", payload: false });
+      }
+
+      if (!loginForm.email) {
         dispatch({ type: "EMPTY_LOGIN_EMAIL", payload: true });
       } else {
         dispatch({ type: "EMPTY_LOGIN_EMAIL", payload: false });
@@ -67,7 +70,7 @@ const LoginController = () => {
         }
       }
 
-      if (loginForm.email && !loginForm.password) {
+      if (!loginForm.password) {
         dispatch({ type: "EMPTY_LOGIN_PASSWORD", payload: true });
       } else {
         dispatch({ type: "EMPTY_LOGIN_PASSWORD", payload: false });
@@ -76,12 +79,6 @@ const LoginController = () => {
         } else {
           dispatch({ type: "WRONG_PASSWORD", payload: false });
         }
-      }
-
-      if (!loginForm.email && !loginForm.password) {
-        dispatch({ type: "EMPTY_LOGIN_GENERAL", payload: true });
-      } else {
-        dispatch({ type: "EMPTY_LOGIN_GENERAL", payload: false });
       }
     }
   };
