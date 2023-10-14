@@ -59,6 +59,7 @@ const CreateRoomModal = ({
             styleSize="w-52"
             styleTextColor="text-gray-500"
             handleClick={setRoomToPrivate}
+            type="button"
           />
 
           {isPrivate ? (
