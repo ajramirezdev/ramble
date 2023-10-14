@@ -5,7 +5,6 @@ const initialState = {
   allUsers: [],
   userNotFound: false,
   wrongPassword: false,
-  // blankNames: false,
   blankFName: false,
   blankLName: false,
   emptyEmail: false,
@@ -32,6 +31,9 @@ const initialState = {
   showEditRoomModal: false,
   roomNotFound: false,
   showEditUserModal: false,
+  isSearchOpen: false,
+  toggleSearch: false,
+  showFullText: false,
 };
 
 const AuthContext = createContext();
@@ -203,6 +205,21 @@ const AuthProvider = (props) => {
         return {
           ...state,
           showEditUserModal: !state.showEditUserModal,
+        };
+      case "IS_SEARCH_OPEN":
+        return {
+          ...state,
+          isSearchOpen: action.payload,
+        };
+      case "TOGGLE_SEARCH":
+        return {
+          ...state,
+          toggleSearch: !state.toggleSearch,
+        };
+      case "SHOW_FULL_TEXT":
+        return {
+          ...state,
+          showFullText: action.payload,
         };
       default:
         return state;

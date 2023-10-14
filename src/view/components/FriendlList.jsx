@@ -45,7 +45,7 @@ const FriendList = ({ mainUser }) => {
 
   return (
     <div className="shadow-lg text-left bg-gray-100 w-1/4 xl:w-1/4 md:w-2/5">
-      <div className="flex flex-row shadow-lg p-3 2xl:px-4 px-2 justify-evenly 2xl:h-16 h-12 items-center bg-slate-800">
+      <div className="flex flex-row p-3 2xl:px-4 px-2 justify-evenly 2xl:h-16 h-12 items-center bg-emerald-800">
         <form onSubmit={searchUsers} className="mt-1 w-full flex items-center">
           <FaUserFriends className="2xl:text-2xl text-xl text-emerald-200 2xl:mr-2 mr-1" />
           <div className="flex justify-center items-center w-full bg-white rounded-md p-1">
@@ -64,32 +64,40 @@ const FriendList = ({ mainUser }) => {
       </h3>
       <div className="p-1">
         {searchedFriends.length === 0
-          ? friends.map((friend) => {
+          ? friends.map((friend, index) => {
               return (
-                <Link
-                  to={`${mainUser._id}/${friend._id}`}
-                  key={friend._id}
-                  className={
-                    params.receiverId === friend._id
-                      ? "text-gray-700 2xl:text-lg p-3 pl-4 block bg-gray-200 rounded-md"
-                      : "text-gray-700 2xl:text-lg p-3 pl-4 block hover:rounded-md hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200"
-                  }
+                <button
+                key={index}
+                  onClick={() => {
+                    dispatch({ type: "IS_SEARCH_OPEN", payload: false });
+                  }}
+                  className="w-full"
                 >
-                  <div className="flex">
-                    <img
-                      className="2xl:h-14 xl:h-10 xl:w-10 md:h-8 object-cover rounded-full mr-2"
-                      src={friend.img}
-                      alt="Profile"
-                    />
-                    <div>
-                      <div className="flex content-between text">
-                        <p className="mr-1">{friend.firstName}</p>
-                        <p>{friend.lastName}</p>
+                  <Link
+                    to={`${mainUser._id}/${friend._id}`}
+                    key={friend._id}
+                    className={
+                      params.receiverId === friend._id
+                        ? "text-gray-700 2xl:text-lg p-3 pl-4 block bg-gray-200 rounded-md"
+                        : "text-gray-700 2xl:text-lg p-3 pl-4 block hover:rounded-md hover:bg-gray-200 active:bg-gray-200 focus:bg-gray-200"
+                    }
+                  >
+                    <div className="flex">
+                      <img
+                        className="2xl:h-14 2xl:w-14 xl:h-10 xl:w-10 md:h-8 object-cover rounded-full mr-2"
+                        src={friend.img}
+                        alt="Profile"
+                      />
+                      <div>
+                        <div className="flex content-between text">
+                          <p className="mr-1">{friend.firstName}</p>
+                          <p>{friend.lastName}</p>
+                        </div>
+                        <div className="text-xs font-bold">{friend.email}</div>
                       </div>
-                      <div className="text-xs font-bold">{friend.email}</div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </button>
               );
             })
           : searchedFriends.map((friend) => {

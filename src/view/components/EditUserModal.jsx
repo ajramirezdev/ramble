@@ -77,7 +77,7 @@ const EditUserModal = ({
               styleTextColor="text-slate-800"
             />
             <CustomButton
-              name="Submit"
+              name="Update"
               styleSize="w-72"
               styleColor="bg-emerald-700 hover:bg-emerald-900"
               styleTextColor="text-white"

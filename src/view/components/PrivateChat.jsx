@@ -90,15 +90,12 @@ const PrivateChat = () => {
   };
 
   return (
-    <div
-      className="flex flex-col bg-white shadow-lg "
-      style={{ height: "90%" }}
-    >
-      <div className="flex text-slate-900 font-extrabold bg-gray-100 shadow-md rounded-tr px-8 2xl:py-2 py-1 items-center gap-4">
+    <div className="flex flex-col bg-white shadow-lg h-full">
+      <div className="flex text-slate-900 font-extrabold bg-gray-200 shadow-lg rounded-tr px-8 2xl:h-16 h-12 py-1 items-center gap-4">
         <img
           src={receiver.img}
-          alt=""
-          className="rounded-full h-11 w-11 border-2 border-emerald-700 object-cover	"
+          alt="Receiver Profile"
+          className="rounded-full h-10 w-10 border-2 border-emerald-700 object-cover"
         />
         <h3 className="2xl:text-lg text-base">
           {receiver.firstName} {receiver.lastName}
@@ -106,32 +103,23 @@ const PrivateChat = () => {
       </div>
 
       <div className="flex-grow p-4 overflow-y-scroll" ref={chatContainerRef}>
+        <div className="flex flex-col items-center mb-6">
+          <img
+            src={receiver.img}
+            alt="Receiver Profile"
+            className="rounded-full h-36 w-36 border-2 border-slate-700 object-cover shadow-md"
+          />
+          <p>
+            Start your <b className="text-emerald-800">Ramble</b> with
+          </p>
+          <p className="font-semibold">
+            {receiver.firstName} {receiver.lastName}!
+          </p>
+        </div>
         {chats.map((chat, index) => {
           const sender = users.find((user) => user._id === chat.sender._id);
           return (
             <div key={index}>
-              <p className="text-center pt-2 text-xs">
-                {new Date(chat.createdAt)
-                  .toLocaleString()
-                  .slice(0, 9)
-                  .startsWith(
-                    new Date(moment().tz("Asia/Manila").toDate())
-                      .toLocaleString()
-                      .slice(0, 9)
-                  ) ? (
-                  <span>
-                    Today at{" "}
-                    {new Date(chat.createdAt).toLocaleString().slice(11, 16)}{" "}
-                    {new Date(chat.createdAt).toLocaleString().slice(-2)}
-                  </span>
-                ) : (
-                  <span>
-                    {moment(chat.createdAt).format("dddd")} at{" "}
-                    {new Date(chat.createdAt).toLocaleString().slice(11, 15)}{" "}
-                    {new Date(chat.createdAt).toLocaleString().slice(-2)}
-                  </span>
-                )}
-              </p>
               <div key={index}>
                 <div
                   className={
@@ -151,17 +139,48 @@ const PrivateChat = () => {
                     <span
                       className={
                         sender._id === user._id
-                          ? "mr-6 font-bold text-emerald-900 text-right"
-                          : "ml-6 font-bold text-emerald-900 text-left"
+                          ? "mr-6 font-bold text-emerald-900 text-right text-sm 2xl:text-lg"
+                          : "ml-6 font-bold text-emerald-900 text-left text-sm 2xl:text-lg"
                       }
                     >
-                      {chat.sender.firstName}{" "}
+                      {/* {chat.sender.firstName}{" "} */}
+                      <p className="pt-2 text-3xs 2xl:text-2xs text-slate-900">
+                        {new Date(chat.createdAt)
+                          .toLocaleString()
+                          .slice(0, 9)
+                          .startsWith(
+                            new Date(moment().tz("Asia/Manila").toDate())
+                              .toLocaleString()
+                              .slice(0, 9)
+                          ) ? (
+                          <span>
+                            Today at{" "}
+                            {new Date(chat.createdAt)
+                              .toLocaleString()
+                              .slice(11, 16)}{" "}
+                            {new Date(chat.createdAt)
+                              .toLocaleString()
+                              .slice(-2)}
+                          </span>
+                        ) : (
+                          <span>
+                            {moment(chat.createdAt).format("dddd")} at{" "}
+                            {new Date(chat.createdAt)
+                              .toLocaleString()
+                              .slice(11, 15)}{" "}
+                            {new Date(chat.createdAt)
+                              .toLocaleString()
+                              .slice(-2)}
+                          </span>
+                        )}
+                      </p>
+                      {chat.sender.firstName}
                     </span>
                     <div
                       className={
                         sender._id === user._id
-                          ? "mr-5 bg-emerald-300 px-4 py-2 rounded-full shadow-md"
-                          : "ml-5 bg-gray-200 px-4 py-2 rounded-full shadow-md"
+                          ? "mr-5 text-justify bg-emerald-300 px-4 py-2 rounded-lg shadow-md max-w-md 2xl:max-w-2xl 2xl:text-lg"
+                          : "ml-5 text-justify bg-gray-200 px-4 py-2 rounded-xl shadow-md max-w-md 2xl:max-w-2xl 2xl:text-lg"
                       }
                     >
                       {chat.body}
@@ -187,20 +206,13 @@ const PrivateChat = () => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Type your Message "
-              className="ml-1 2xl:p-2 p-1 2xl:text-base rounded-lg text-sm w-full outline-none "
+              className="ml-1 2xl:p-2 p-1 2xl:text-base rounded-lg text-sm w-full outline-none"
             />
 
             <PiPaperPlaneRightFill
               onClick={sendMessage}
               className="text-2xl 2xl:text-4xl text-emerald-800 hover:text-emerald-900 mr-2 cursor-pointer"
             />
-
-            {/* <button
-              onClick={sendMessage}
-              className="mr-0 ml-2 p-1 bg-emerald-500 text-white rounded-lg shadow-lg hover:bg-emerald-600 w-20 "
-            >
-              Send
-            </button> */}
           </form>
         </div>
       </div>

@@ -10,7 +10,7 @@ const SearchBar = ({ roomSearchRef, searchRooms }) => {
         <input
           type="text"
           className="w-20px 2xl:px-2 px-1 py-1 2xl:text-base xl:text-sm outline-none border border-gray-300 rounded bg-white shadow-lg"
-          placeholder="Search Rooms or Friends"
+          placeholder="Search from all Rooms"
           ref={roomSearchRef}
         />
         <button
@@ -21,8 +21,8 @@ const SearchBar = ({ roomSearchRef, searchRooms }) => {
         </button>
       </form>
       {state.roomNotFound ? (
-        <div className="text-red-300 2xl:text-base text-xs">
-          No rooms found
+        <div className="text-red-500 2xl:text-base text-xs">
+          No rooms found!
         </div>
       ) : null}
     </div>

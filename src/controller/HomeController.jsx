@@ -10,7 +10,6 @@ import CreateRoomModal from "../view/components/CreateRoomModal";
 import PasswordModal from "../view/components/PasswordModal";
 import DeleteRoomModal from "../view/components/DeleteRoomModal";
 import EditRoomModal from "../view/components/EditRoomModal";
-// import SearchBar from "../view/components/SearchBar";
 import EditUserModal from "../view/components/EditUserModal";
 import { storage } from "../config/firebase";
 import {
@@ -21,11 +20,15 @@ import {
 } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import FriendList from "../view/components/FriendlList";
-import logo from "../../assets/groupchat.png";
-// import settings from "../../assets/settings.png";
+import logo from "../../assets/ramble-r-logo.png";
 
 //icons
 import { IoLogOut } from "react-icons/io5";
+import { BsFillChatRightTextFill } from "react-icons/bs";
+import { BiSolidMessageSquareAdd } from "react-icons/bi";
+import { RiChatPrivateFill } from "react-icons/ri";
+import { AiOutlineWechat } from "react-icons/ai";
+import { BsChatTextFill } from "react-icons/bs";
 
 const HomeController = () => {
   const [state, dispatch] = useContext(AuthContext);
@@ -45,22 +48,6 @@ const HomeController = () => {
   const [imgUpload, setImgUpload] = useState();
   const [profilePicURL, setProfilePicURL] = useState();
   const [previousImageRef, setPreviousImageRef] = useState(null);
-
-  // const searchRooms = (e) => {
-  //   e.preventDefault();
-  //   const searchInput = roomSearchRef.current.value;
-  //   const searchedRooms = [...state.publicRooms, ...state.privateRooms].filter(
-  //     (room) => room.roomName.toLowerCase().includes(searchInput.toLowerCase())
-  //   );
-  //   dispatch({ type: "SET_SEARCHED_ROOMS", payload: searchedRooms });
-
-  //   if (!searchInput.trim() || !searchedRooms.length) {
-  //     dispatch({ type: "ROOM_NOT_FOUND", payload: true });
-  //   } else {
-  //     dispatch({ type: "ROOM_NOT_FOUND", payload: false });
-  //     navigate("search");
-  //   }
-  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -370,6 +357,10 @@ const HomeController = () => {
     dispatch({ type: "SHOW_EDIT_USER_MODAL" });
   };
 
+  const showCreateModal = () => {
+    dispatch({ type: "SHOW_CREATE_ROOM_FORM" });
+  };
+
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -390,27 +381,123 @@ const HomeController = () => {
         ) : null}
 
         <div className="flex h-screen">
-          <div className="bg-gradient-to-b from-slate-800 from-10% to-emerald-600 to-100% h-screen p-2 shadow-lg flex flex-col justify-between 2xl:w-20 w-16 items-center">
+          <div className="bg-emerald-800 h-screen p-2 shadow-lg flex flex-col justify-between 2xl:w-20 w-16 items-center">
             <div>
               <img
-                className="2xl:h-14 h-10 mt-0 rounded shadow-md object-cover"
+                className="2xl:h-14 h-11 mt-0 rounded shadow-md p-1 object-cover bg-emerald-900"
                 src={logo}
-                alt=""
+                alt="Logo"
               />
-              <img
-                src={user.img}
-                alt={user.name}
-                className="2xl:h-14 h-10 mt-5 rounded-full border-spacing-10 shadow-md object-cover"
-                onClick={showEditUserModal}
-              />
+              <div className="relative inline-block group">
+                <button
+                  className="2xl:h-14 2xl:w-14 h-10 w-10 mt-5 rounded-full border-spacing-10 bg-slate-300"
+                  onClick={() => {
+                    showEditUserModal();
+                    dispatch({ type: "IS_SEARCH_OPEN", payload: false });
+                  }}
+                >
+                  <img
+                    src={user.img}
+                    alt={user.name}
+                    className="2xl:h-14 2xl:w-14 h-10 w-10 rounded-full shadow-md object-cover"
+                  />
+                </button>
+                <p className="bg-slate-800 text-xs text-white p-1 rounded-lg absolute top-7 left-14 opacity-0 invisible group-hover:opacity-70 group-hover:visible transition-opacity">
+                  Profile
+                </p>
+              </div>
             </div>
             <div>
-              <IoLogOut
-                className="2xl:text-5xl text-xl self-end cursor-pointer text-emerald-200 transform -scale-x-100"
-                onClick={logout}
-              />
+              <div className="relative inline-block group">
+                <button
+                  onClick={() => {
+                    navigate("my-rooms");
+                    dispatch({ type: "IS_SEARCH_OPEN", payload: true });
+                  }}
+                  className=" text-white px-2 py-1 rounded-lg hover:bg-slate-800 transition"
+                >
+                  <BsFillChatRightTextFill className="2xl:text-5xl text-3xl hover:text-emerald-300 text-emerald-100" />
+                </button>
+                <p className="bg-slate-800 text-xs text-white p-1 rounded-lg absolute top-1 left-14 opacity-0 invisible group-hover:opacity-70 group-hover:visible transition-opacity">
+                  My Rooms
+                </p>
+              </div>
+              <div className="relative inline-block group">
+                <button
+                  onClick={() => {
+                    navigate("joined");
+                    dispatch({ type: "IS_SEARCH_OPEN", payload: true });
+                  }}
+                  className=" text-white px-2 py-1 rounded-lg hover:bg-slate-800 transition"
+                >
+                  <AiOutlineWechat className="2xl:text-5xl text-3xl hover:text-emerald-300 text-emerald-100" />
+                </button>
+                <p className="bg-slate-800 text-xs text-white p-1 rounded-lg absolute top-1 left-14 opacity-0 invisible group-hover:opacity-70 group-hover:visible transition-opacity">
+                  Joined
+                </p>
+              </div>
+
+              <div className="relative inline-block group">
+                <button
+                  onClick={() => {
+                    navigate("public");
+                    dispatch({ type: "IS_SEARCH_OPEN", payload: true });
+                  }}
+                  className=" text-white px-2 py-1 rounded-lg hover:bg-slate-800 transition"
+                >
+                  <BsChatTextFill className="2xl:text-5xl text-3xl hover:text-emerald-300 text-emerald-100 transform -scale-x-100" />
+                </button>
+                <p className="bg-slate-800 text-xs text-white p-1 rounded-lg absolute top-1 left-14 opacity-0 invisible group-hover:opacity-70 group-hover:visible transition-opacity">
+                  Public
+                </p>
+              </div>
+              <div className="relative inline-block group">
+                <button
+                  onClick={() => {
+                    navigate("private");
+                    dispatch({ type: "IS_SEARCH_OPEN", payload: true });
+                  }}
+                  className=" text-white px-2 py-1 rounded-lg hover:bg-slate-800 transition"
+                >
+                  <RiChatPrivateFill className="2xl:text-5xl text-3xl hover:text-emerald-300 text-emerald-100 transform -scale-x-100" />
+                </button>
+                <p className="bg-slate-800 text-xs text-white p-1 rounded-lg absolute top-1 left-14 opacity-0 invisible group-hover:opacity-70 group-hover:visible transition-opacity">
+                  Private
+                </p>
+              </div>
+            </div>
+
+            <div className="relative inline-block group">
+              <button
+                onClick={() => {
+                  showCreateModal();
+                  dispatch({ type: "IS_SEARCH_OPEN", payload: false });
+                }}
+                className=" text-white px-2 py-1 rounded-lg hover:bg-slate-800 transition"
+              >
+                <BiSolidMessageSquareAdd className="2xl:text-5xl text-3xl hover:text-emerald-300 text-emerald-100 transform -scale-x-100" />
+              </button>
+              <p className="bg-slate-800 text-xs text-white p-1 rounded-lg absolute top-1 left-14 opacity-0 invisible group-hover:opacity-70 group-hover:visible transition-opacity">
+                Create
+              </p>
+            </div>
+
+            <div className="relative inline-block group">
+              <button
+                onClick={() => {
+                  logout();
+                  dispatch({ type: "IS_SEARCH_OPEN", payload: false });
+                }}
+                className="text-white px-2 py-1 rounded-lg hover:bg-slate-800 transition"
+              >
+                <IoLogOut className="2xl:text-5xl text-3xl self-end cursor-pointer text-red-400 hover:text-red-500 transform -scale-x-100" />
+              </button>
+              <p className="bg-slate-800 text-xs text-white p-1 rounded-lg absolute top-1 left-14 opacity-0 invisible group-hover:opacity-70 group-hover:visible transition-opacity">
+                Logout
+              </p>
             </div>
           </div>
+
           <FriendList mainUser={user} />
           <div className="flex flex-row just w-screen">
             <RoomTabs

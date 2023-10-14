@@ -7,17 +7,17 @@ const SearchedRoomList = () => {
 
   return (
     <div
-    className="
+      className="
       flex 
       flex-col 
       m-auto 
-      bg-emerald-300
-      rounded-lg 
-      shadow-lg"
+      shadow-lg
+      p-2
+      overflow-y-scroll
+      "
       style={{
-        width: "80rem",
-        height: "46rem",
-        overflowY: "auto",
+        width: "100%",
+        height: "90%",
       }}
     >
       {searchedRooms.map((room) => {
@@ -27,8 +27,9 @@ const SearchedRoomList = () => {
         const isRoomOwner = createdBy === user._id;
 
         return (
-          <div key={_id}
-            className="flex flex-col items-center justify-center shadow-lg mt-3"
+          <div
+            key={_id}
+            className="flex flex-col items-center justify-center shadow-lg m-2 rounded bg-emerald-200"
           >
             <div className="flex">
               <h3 className="font-bold">Room Name:</h3>
@@ -54,17 +55,18 @@ const SearchedRoomList = () => {
                   Delete
                 </button>
                 <button className="justify-center shadow-lg mb-1 p-1 w-24 bg-emerald-500 text-white rounded text-sm">
-                <Link to={`/chat/room/${room._id}`}>Enter</Link>
-              </button>
+                  <Link to={`/chat/room/${room._id}`}>Enter</Link>
+                </button>
               </div>
             ) : isMember ? (
               <button className="justify-center shadow-lg m-1 p-1 w-24 bg-emerald-500 text-white rounded text-sm">
                 <Link to={`/chat/room/${room._id}`}>Enter</Link>
               </button>
             ) : (
-              <button 
-              className="justify-center shadow-lg m-1 p-1 w-24 bg-emerald-500 text-white rounded text-sm"
-              onClick={() => joinRoom(room, location.pathname)}>
+              <button
+                className="justify-center shadow-lg m-1 p-1 w-24 bg-emerald-500 text-white rounded text-sm"
+                onClick={() => joinRoom(room, location.pathname)}
+              >
                 Join
               </button>
             )}

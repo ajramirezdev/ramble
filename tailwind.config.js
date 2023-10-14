@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{html,js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -31,6 +31,10 @@ export default {
 
         "2xl": "1920px",
         // => @media (min-width: 1536px) { ... }
+      },
+      fontSize: {
+        "2xs": "0.75rem",
+        "3xs": "0.65rem",
       },
     },
   },
