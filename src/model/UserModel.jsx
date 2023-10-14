@@ -1,9 +1,11 @@
 class UserModel {
-  constructor() {}
+  constructor() {
+    this.BASE_URL = "https://ramble-be.onrender.com";
+  }
 
   async registerUser(user) {
     try {
-      const response = await fetch("http://localhost:2222/user", {
+      const response = await fetch(`${this.BASE_URL}/user`, {
         method: "POST",
         mode: "cors",
         headers: {
@@ -24,7 +26,7 @@ class UserModel {
         email: email,
         password: password,
       };
-      const response = await fetch("http://localhost:2222/user/login", {
+      const response = await fetch(`${this.BASE_URL}/user/login`, {
         method: "POST",
         mode: "cors",
         headers: {
@@ -50,7 +52,7 @@ class UserModel {
 
   async getAllUsers() {
     try {
-      const response = await fetch("http://localhost:2222/user");
+      const response = await fetch(`${this.BASE_URL}/user`);
       const users = await response.json();
       return users;
     } catch (error) {
@@ -60,7 +62,7 @@ class UserModel {
 
   async getOneUser(userId) {
     try {
-      const response = await fetch(`http://localhost:2222/user/${userId}`);
+      const response = await fetch(`${this.BASE_URL}/user/${userId}`);
       const user = await response.json();
       return user;
     } catch (error) {
@@ -70,7 +72,7 @@ class UserModel {
 
   async getUserByEmail(email) {
     try {
-      const response = await fetch(`http://localhost:2222/user?email=${email}`);
+      const response = await fetch(`${this.BASE_URL}/user?email=${email}`);
       const user = await response.json();
       return user;
     } catch (error) {
@@ -80,7 +82,7 @@ class UserModel {
 
   async editeUser(userId, edits) {
     try {
-      await fetch(`http://localhost:2222/user/${userId}`, {
+      await fetch(`${this.BASE_URL}/user/${userId}`, {
         method: "PUT",
         mode: "cors",
         headers: {
@@ -95,7 +97,7 @@ class UserModel {
 
   async deleteUser(userId) {
     try {
-      await fetch(`http://localhost:2222/user/${userId}`, {
+      await fetch(`${this.BASE_URL}/user/${userId}`, {
         method: "DELETE",
       });
     } catch (error) {
