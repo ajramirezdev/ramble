@@ -36,49 +36,42 @@ const LoginController = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!loginForm.email && loginForm.password) {
-      dispatch({ type: "EMPTY_LOGIN_EMAIL", payload: true });
-    } else {
-      dispatch({ type: "EMPTY_LOGIN_EMAIL", payload: false });
-    }
-
-    if (loginForm.password && !loginForm.password) {
-      dispatch({ type: "EMPTY_LOGIN_PASSWORD", payload: true });
-    } else {
-      dispatch({ type: "EMPTY_LOGIN_PASSWORD", payload: false });
-    }
-
     try {
-      const token = await UserModel.login(loginForm.email, loginForm.password);
-      dispatch({ type: "SAVE_TOKEN", payload: token });
-      navigate("/chat");
-    } catch (err) {
       if (!loginForm.email && !loginForm.password) {
         dispatch({ type: "EMPTY_LOGIN_GENERAL", payload: true });
+        return;
       } else {
         dispatch({ type: "EMPTY_LOGIN_GENERAL", payload: false });
       }
 
       if (!loginForm.email) {
         dispatch({ type: "EMPTY_LOGIN_EMAIL", payload: true });
+        return;
       } else {
         dispatch({ type: "EMPTY_LOGIN_EMAIL", payload: false });
-        if (err.message === "User not found") {
-          dispatch({ type: "USER_NOT_FOUND", payload: true });
-        } else {
-          dispatch({ type: "USER_NOT_FOUND", payload: false });
-        }
       }
 
       if (!loginForm.password) {
         dispatch({ type: "EMPTY_LOGIN_PASSWORD", payload: true });
+        return;
       } else {
         dispatch({ type: "EMPTY_LOGIN_PASSWORD", payload: false });
-        if (err.message === "Unauthorized Access") {
-          dispatch({ type: "WRONG_PASSWORD", payload: true });
-        } else {
-          dispatch({ type: "WRONG_PASSWORD", payload: false });
-        }
+      }
+
+      const token = await UserModel.login(loginForm.email, loginForm.password);
+      dispatch({ type: "SAVE_TOKEN", payload: token });
+      navigate("/chat");
+    } catch (err) {
+      if (err.message === "Unauthorized Access") {
+        dispatch({ type: "WRONG_PASSWORD", payload: true });
+      } else {
+        dispatch({ type: "WRONG_PASSWORD", payload: false });
+      }
+
+      if (err.message === "User not found") {
+        dispatch({ type: "USER_NOT_FOUND", payload: true });
+      } else {
+        dispatch({ type: "USER_NOT_FOUND", payload: false });
       }
     }
   };
